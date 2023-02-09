@@ -1,6 +1,6 @@
 import { getAuth, signOut } from 'firebase/auth';
 // import { getStorage } from 'firebase/storage';
-import { collection, getDocs, addDoc, doc, setDoc } from 'firebase/firestore';
+import { collection, getDocs, addDoc, doc, setDoc, Timestamp } from 'firebase/firestore';
 import { db } from '../lib/firebase-app';
 
 const auth = getAuth();
@@ -46,8 +46,9 @@ export default () => {
           <!-- <img src="./img/image-post.png" alt="" class="imgUser">-->
           <p id="description">Aquí va el post</p>
         </div>
+        <p id="time" class="time">Time</p>
         <!--<ul class="nav-myPost">
-          <li><button class="postBtn">Liked</button></li>
+          <li><button id ="postBtn" class="postBtn">Liked</button></li>
           <li><button class="postBtn">Editar</button></li>
           <li><button class="postBtn">Eliminar</button></li> 
         </ul>-->
@@ -77,7 +78,7 @@ export const init = () => {
     document.querySelector('.footer').style.display = 'none';
   });
 
-  //create post;
+  // create post;
   function writePost() {
     const btnPublish = document.getElementById('form-post');
     const textPublication = document.getElementById('texto');
@@ -85,8 +86,9 @@ export const init = () => {
       e.preventDefault();
       const createPost = doc(db, 'post/id');
       const docData = {
-        title: 'post1',
+        userName: auth.currentUser.displayName,
         description: textPublication.value,
+        time: Timestamp.fromDate(new Date()),
       };
       setDoc(createPost, docData);
     });
@@ -102,12 +104,14 @@ export const init = () => {
         const dataPost = doc.data();
         const cloneTemplatePosts = document.importNode(
           templatePosts.content,
-          true
+          true,
         );
-        const h2title = cloneTemplatePosts.getElementById('user-name');
+        const h2userName = cloneTemplatePosts.getElementById('user-name');
         const pDescription = cloneTemplatePosts.getElementById('description');
-        h2title.textContent = dataPost.title;
+        const pTime = cloneTemplatePosts.getElementById('time');
+        h2userName.textContent = dataPost.userName;
         pDescription.textContent = dataPost.description;
+        pTime.textContent = dataPost.time.toDate().toLocaleString();
         containerListPosts.appendChild(cloneTemplatePosts);
       });
     } else {
