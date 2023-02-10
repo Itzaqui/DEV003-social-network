@@ -24,7 +24,7 @@ export default () => {
           <div class="img-perfil">
             <img src="./img/userPic.png" alt="" class="imgUser">
           </div>
-          <textarea class="myPosts" class="text-post" id="texto" placeholder="" ></textarea>
+          <textarea class="myPosts" class="text-post" id="texto" placeholder="" autofocus></textarea>
         </div>
       <ul class="nav-myPost">
         <li><button type="button" class="postBtn">Foto</button></li>
@@ -65,15 +65,18 @@ export default () => {
 
 //CREATE POSTS:
 function writePost() {
-  const btnPublish = document.getElementById('form-post');
+  const formInput = document.getElementById('form-post');
   const textPublication = document.getElementById('texto');
-  btnPublish.addEventListener('submit', (e) => {
+  formInput.addEventListener('submit', (e) => {
     e.preventDefault();
     addDoc(collection(db, 'post'), {
       userName: auth.currentUser.displayName,
       description: textPublication.value,
       time: Timestamp.fromDate(new Date()),
-    }).then(() => btnPublish.reset());
+    }).then(() => {
+      formInput.reset();
+      textPublication.focus();
+    });
   });
 }
 
@@ -104,7 +107,7 @@ export const init = () => {
         const dataPost = doc.data();
         const cloneTemplatePosts = document.importNode(
           templatePosts.content,
-          true,
+          true
         );
         const h2userName = cloneTemplatePosts.getElementById('user-name');
         const pDescription = cloneTemplatePosts.getElementById('description');
@@ -124,6 +127,7 @@ export const init = () => {
     if (user) {
       const unsub = onSnapshot(collection(db, 'post'), (querySnapshot) => {
         loadPosts(querySnapshot);
+        textPublication.focus();
       });
     } else {
       history.pushState(null, null, '/');
