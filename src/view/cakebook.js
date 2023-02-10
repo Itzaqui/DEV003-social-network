@@ -115,6 +115,8 @@ export const init = () => {
         h2userName.textContent = dataPost.userName;
         pDescription.textContent = dataPost.description;
         pTime.textContent = dataPost.time?.toDate().toLocaleString() || '';
+        const textPublication = document.getElementById('texto');
+        textPublication.focus();
         containerListPosts.appendChild(cloneTemplatePosts);
       });
     } else {
@@ -126,8 +128,7 @@ export const init = () => {
   auth.onAuthStateChanged((user) => {
     if (user) {
       const unsub = onSnapshot(collection(db, 'post'), (querySnapshot) => {
-        loadPosts(querySnapshot);
-        textPublication.focus();
+        loadPosts(querySnapshot); 
       });
     } else {
       history.pushState(null, null, '/');

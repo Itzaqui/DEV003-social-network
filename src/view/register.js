@@ -69,7 +69,6 @@ function registeredUser(userCredential) {
   const user = userCredential.user;
   console.log('Firebase User', user);
   alert('guardado exitosamente');
-  form.reset();
 }
 
 function registerWithEmailAndPassword(e) {
@@ -92,6 +91,7 @@ export const init = () => {
   const auth = getAuth();
   auth.onAuthStateChanged((user) => {
     if (user) {
+      form.reset();
       history.pushState(null, null, '/cakebook');
     }
   });
