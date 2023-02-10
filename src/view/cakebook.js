@@ -24,11 +24,11 @@ export default () => {
           <div class="img-perfil">
             <img src="./img/userPic.png" alt="" class="imgUser">
           </div>
-          <textarea class="myPosts" class="text-post" id="texto" placeholder="" autofocus></textarea>
+          <textarea  class="text-post" id="texto" placeholder="" autofocus></textarea>
         </div>
       <ul class="nav-myPost">
-        <li><button type="button" class="postBtn">Foto</button></li>
-        <li><button id="publicar" class="postBtn">Publicar</button></li>
+        <li><button type="button" class="postBtn" id="btn-photo"><i class="fas fa-camera-retro"></i></button></li>
+        <li><button id="publicar" class="postBtn"><i class="far fa-paper-plane"></i></button></li>
       </ul> 
     </form>
     <div id="list-posts">
@@ -46,11 +46,11 @@ export default () => {
           <p id="description">Aquí va el post</p>
           <p id="time" class="time">Time</p>
         </div>
-        <!--<ul class="nav-myPost">
-          <li><button class="postBtn">Liked</button></li>
-          <li><button class="postBtn">Editar</button></li>
-          <li><button class="postBtn">Eliminar</button></li> 
-        </ul>-->
+        <ul class="nav-myPost">
+          <li><button class="postBtn" id="btn-liked"><i class="far fa-heart"></i></button></li>
+          <li><button class="postBtn"><i class="far fa-edit"></i></button></li>
+          <li><button class="postBtn"><i class="far fa-trash-alt"></i></button></li> 
+        </ul>
       </div>
     </template>    
   </div>
