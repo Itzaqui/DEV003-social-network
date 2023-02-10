@@ -27,8 +27,8 @@ export default () => {
           <textarea  class="text-post" id="texto" placeholder="" autofocus></textarea>
         </div>
       <ul class="nav-myPost">
-        <li><button type="button" class="postBtn" id="btn-photo"><i class="fas fa-camera-retro"></i></button></li>
-        <li><button id="publicar" class="postBtn"><i class="far fa-paper-plane"></i></button></li>
+        <li><button type="button" class="postBtn" id="btn-photo" title="Subir foto"><i class="fas fa-camera-retro"></i></button></li>
+        <li><button id="publicar" class="postBtn" title="Publicar"><i class="far fa-paper-plane"></i></button></li>
       </ul> 
     </form>
     <div id="list-posts">
@@ -47,9 +47,9 @@ export default () => {
           <p id="time" class="time">Time</p>
         </div>
         <ul class="nav-myPost">
-          <li><button class="postBtn" id="btn-liked"><i class="far fa-heart"></i></button></li>
-          <li><button class="postBtn"><i class="far fa-edit"></i></button></li>
-          <li><button class="postBtn"><i class="far fa-trash-alt"></i></button></li> 
+          <li><button class="postBtn" id="btn-liked" title="Like"><i class="far fa-heart"></i></button></li>
+          <li><button class="postBtn"  title="Editar"><i class="far fa-edit"></i></button></li>
+          <li><button class="postBtn" title="Eliminar"><i class="far fa-trash-alt"></i></button></li> 
         </ul>
       </div>
     </template>    
