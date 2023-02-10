@@ -99,6 +99,7 @@
 .postBtn{
   background: none;
   border: none;
+  cursor: pointer;
 }
 
 #btn-photo{
