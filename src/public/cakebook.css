@@ -64,6 +64,19 @@
   width: 22em;
 }
 
+.cakebook-container .text-post{
+  display: flex;
+  margin-bottom: 0.5em;
+  background-color: rgb(250, 250, 245);
+  background-clip: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.09);
+  border-radius: 0.4rem;
+  padding: 0.5rem 1.25rem;
+  flex-direction: column;
+  font-size: 1em;
+  width: 22em;
+}
+
 .header-post{
   display: flex;
 }
@@ -75,7 +88,7 @@
 .nav-myPost{
   display: flex;
   list-style: none;
-  margin-left: 9em;
+  margin-left: 10em;
   align-items: center;
   justify-content: space-around;
   margin-top: 0%;
@@ -87,6 +100,15 @@
   background: none;
   border: none;
 }
+
+#btn-photo{
+  margin-left: 3.5em;
+}
+
+#publicar{
+  margin-right: 0.5em;
+}
+
 
 .cakebook-container .friendsPosts {
   display: flex;
