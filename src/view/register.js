@@ -1,5 +1,9 @@
 /* eslint-disable no-alert */
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  updateProfile,
+} from 'firebase/auth';
 
 import { loginWithGoogle } from '../lib/google-auth';
 
@@ -55,7 +59,7 @@ function handleError(error) {
     'auth/invalid-email': 'Correo inválido.',
     'auth/email-already-in-use': 'Correo ya registrado.',
     'auth/weak-password':
-    'Por favor, introduce una contraseña que contenga más de 6 carácteres.',
+      'Por favor, introduce una contraseña que contenga más de 6 carácteres.',
     'auth/internal-error': 'Por favor, introduce una contraseña.',
   };
 
@@ -63,11 +67,20 @@ function handleError(error) {
   alert(msgError);
 }
 
-function registeredUser(userCredential) {
-  const form = document.querySelector('.form-btn');
+function registeredUser(userCredential, userForm) {
   // Signed in
   const user = userCredential.user;
-  console.log('Firebase User', user);
+  updateProfile(user, {
+    displayName: userForm.fullName,
+  })
+    .then(() => {
+      // Profile updated!
+      // ...
+    })
+    .catch((error) => {
+      // An error occurred
+      // ...
+    });
   alert('guardado exitosamente');
 }
 
@@ -77,7 +90,7 @@ function registerWithEmailAndPassword(e) {
   const form = document.querySelector('.form-btn');
   const data = Object.fromEntries(new FormData(form));
   createUserWithEmailAndPassword(auth, data.email, data.password)
-    .then(registeredUser)
+    .then((userCredential) => registeredUser(userCredential, data))
     .catch(handleError);
 }
 
