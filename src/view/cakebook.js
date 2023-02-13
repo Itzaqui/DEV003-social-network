@@ -1,6 +1,6 @@
 import { getAuth, signOut } from 'firebase/auth';
 import { collection, addDoc, onSnapshot, Timestamp } from 'firebase/firestore';
-import { db } from '../lib/firebase-app';
+import { db, deletePost } from '../lib/firebase-app';
 
 const auth = getAuth();
 
@@ -48,8 +48,8 @@ export default () => {
         </div>
         <ul class="nav-myPost">
           <li><button class="postBtn" id="btn-liked" title="Like"><i class="far fa-heart"></i></button></li>
-          <li><button class="postBtn"  title="Editar"><i class="far fa-edit"></i></button></li>
-          <li><button class="postBtn" title="Eliminar"><i class="far fa-trash-alt"></i></button></li> 
+          <li><button class="postBtn btn-edit"  title="Editar"><i class="far fa-edit"></i></button></li>
+          <li><button type="button" class="postBtn btn-delete" title="Eliminar"><i class="far fa-trash-alt"></i></button></li> 
         </ul>
       </div>
     </template>    
@@ -112,23 +112,55 @@ export const init = () => {
         const h2userName = cloneTemplatePosts.getElementById('user-name');
         const pDescription = cloneTemplatePosts.getElementById('description');
         const pTime = cloneTemplatePosts.getElementById('time');
+        const btnDelete = cloneTemplatePosts.querySelector('.btn-delete');
+        btnDelete.setAttribute('data-id', doc.id);
         h2userName.textContent = dataPost.userName;
         pDescription.textContent = dataPost.description;
         pTime.textContent = dataPost.time?.toDate().toLocaleString() || '';
         const textPublication = document.getElementById('texto');
         textPublication.focus();
         containerListPosts.appendChild(cloneTemplatePosts);
+          if (auth.currentUser.displayName === dataPost.userName) {
+          btnDelete.style.display= "inline-block";
+         }
       });
+      eventDelete();
+      eventEdit();
     } else {
       containerListPosts.textContent = 'No hay publicación';
     }
   };
 
+  //Eliminar post
+  function eventDelete() {
+    const btnsDelete = containerListPosts.querySelectorAll('.btn-delete');
+    btnsDelete.forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const id = btn.getAttribute('data-id');
+        deletePost(id);
+        console.log(id);
+        console.log('deleting');
+      });
+    });
+  }
+
+  //Editar Posts
+  function eventEdit() {
+    const btnsEdit = containerListPosts.querySelectorAll('.btn-edit');
+    btnsEdit.forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        console.log('Editing');
+      });
+    });
+  }
+
   // list posts for auth state changes
   auth.onAuthStateChanged((user) => {
     if (user) {
       const unsub = onSnapshot(collection(db, 'post'), (querySnapshot) => {
-        loadPosts(querySnapshot); 
+        loadPosts(querySnapshot);
       });
     } else {
       history.pushState(null, null, '/');
