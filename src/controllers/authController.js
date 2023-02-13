@@ -10,8 +10,9 @@ const authController = (route) => {
     component = routes.register;
   } else if (route === '/cakebook') {
     component = routes.cakebook;
+  } else if (route === '/profile') {
+    component = routes.profile;
   }
-
   containerMain.appendChild(component.view());
   component.init();
   return containerMain;
