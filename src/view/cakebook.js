@@ -112,7 +112,7 @@ export const init = () => {
         const h2userName = cloneTemplatePosts.getElementById('user-name');
         const pDescription = cloneTemplatePosts.getElementById('description');
         const pTime = cloneTemplatePosts.getElementById('time');
-        const btnDelete =cloneTemplatePosts.querySelector('.btn-delete');
+        const btnDelete = cloneTemplatePosts.querySelector('.btn-delete');
         btnDelete.setAttribute('data-id', doc.id);
         h2userName.textContent = dataPost.userName;
         pDescription.textContent = dataPost.description;
@@ -120,9 +120,12 @@ export const init = () => {
         const textPublication = document.getElementById('texto');
         textPublication.focus();
         containerListPosts.appendChild(cloneTemplatePosts);
+          if (auth.currentUser.displayName === dataPost.userName) {
+          btnDelete.style.display= "inline-block";
+         }
       });
       eventDelete();
-      eventEdit()
+      eventEdit();
     } else {
       containerListPosts.textContent = 'No hay publicación';
     }
