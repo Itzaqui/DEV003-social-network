@@ -1,6 +1,6 @@
 import { getAuth, signOut } from 'firebase/auth';
 import { collection, addDoc, onSnapshot, Timestamp } from 'firebase/firestore';
-import { db, deletePost } from '../lib/firebase-app';
+import { db } from '../lib/firebase-app';
 
 const auth = getAuth();
 
@@ -73,6 +73,10 @@ function writePost() {
       userName: auth.currentUser.displayName,
       description: textPublication.value,
       time: Timestamp.fromDate(new Date()),
+      postLikes: [],
+      LikesSum: 0,
+      userId: auth.currentUser.uid,
+
     }).then(() => {
       formInput.reset();
       textPublication.focus();
@@ -124,37 +128,10 @@ export const init = () => {
           btnDelete.style.display= "inline-block";
          }
       });
-      eventDelete();
-      eventEdit();
     } else {
       containerListPosts.textContent = 'No hay publicación';
     }
   };
-
-  //Eliminar post
-  function eventDelete() {
-    const btnsDelete = containerListPosts.querySelectorAll('.btn-delete');
-    btnsDelete.forEach((btn) => {
-      btn.addEventListener('click', (e) => {
-        e.preventDefault();
-        const id = btn.getAttribute('data-id');
-        deletePost(id);
-        console.log(id);
-        console.log('deleting');
-      });
-    });
-  }
-
-  //Editar Posts
-  function eventEdit() {
-    const btnsEdit = containerListPosts.querySelectorAll('.btn-edit');
-    btnsEdit.forEach((btn) => {
-      btn.addEventListener('click', (e) => {
-        e.preventDefault();
-        console.log('Editing');
-      });
-    });
-  }
 
   // list posts for auth state changes
   auth.onAuthStateChanged((user) => {
