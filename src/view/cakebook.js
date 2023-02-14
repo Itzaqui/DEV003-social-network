@@ -1,6 +1,6 @@
-import { getAuth, signOut } from 'firebase/auth';
-import { collection, addDoc, onSnapshot, Timestamp } from 'firebase/firestore';
-import { db, deletePost } from '../lib/firebase-app';
+import { getAuth, signOut } from "firebase/auth";
+import { collection, addDoc, onSnapshot, Timestamp } from "firebase/firestore";
+import { db, deletePost } from "../lib/firebase-app";
 
 const auth = getAuth();
 
@@ -47,7 +47,7 @@ export default () => {
           <p id="time" class="time">Time</p>
         </div>
         <ul class="nav-myPost">
-          <li><button class="postBtn" id="btn-liked" title="Like"><i class="far fa-heart"></i></button></li>
+          <li><button class="postBtn btn-like" id="btn-liked" title="Like"><i class="far fa-heart"></i></button></li>
           <li><button class="postBtn btn-edit"  title="Editar"><i class="far fa-edit"></i></button></li>
           <li><button type="button" class="postBtn btn-delete" title="Eliminar"><i class="far fa-trash-alt"></i></button></li> 
         </ul>
@@ -55,24 +55,26 @@ export default () => {
     </template>    
   </div>
   `;
-  document.querySelector('.footer').style.display = 'flex';
+  document.querySelector(".footer").style.display = "flex";
 
-  const cakebookContainer = document.createElement('div');
-  cakebookContainer.classList.add('cakebook-container');
+  const cakebookContainer = document.createElement("div");
+  cakebookContainer.classList.add("cakebook-container");
   cakebookContainer.innerHTML = viewTimeline;
   return cakebookContainer;
 };
 
 //CREATE POSTS:
 function writePost() {
-  const formInput = document.getElementById('form-post');
-  const textPublication = document.getElementById('texto');
-  formInput.addEventListener('submit', (e) => {
+  const formInput = document.getElementById("form-post");
+  const textPublication = document.getElementById("texto");
+  formInput.addEventListener("submit", (e) => {
     e.preventDefault();
-    addDoc(collection(db, 'post'), {
+    addDoc(collection(db, "post"), {
       userName: auth.currentUser.displayName,
       description: textPublication.value,
       time: Timestamp.fromDate(new Date()),
+      postLikes: [],
+      LikesSum: 0,
     }).then(() => {
       formInput.reset();
       textPublication.focus();
@@ -81,27 +83,27 @@ function writePost() {
 }
 
 export const init = () => {
-  const buttonSignOut = document.getElementById('signOut');
-  buttonSignOut.addEventListener('click', (e) => {
+  const buttonSignOut = document.getElementById("signOut");
+  buttonSignOut.addEventListener("click", (e) => {
     e.preventDefault();
     signOut(auth)
       .then(() => {
-        history.pushState(null, null, '/');
+        history.pushState(null, null, "/");
       })
       .catch((error) => {
         console.log(error);
       });
-    document.querySelector('.footer').style.display = 'none';
+    document.querySelector(".footer").style.display = "none";
   });
 
   writePost();
 
   // CARGAR POSTS;
-  const templatePosts = document.getElementById('posts');
-  const containerListPosts = document.getElementById('list-posts');
+  const templatePosts = document.getElementById("posts");
+  const containerListPosts = document.getElementById("list-posts");
 
   const loadPosts = (data) => {
-    containerListPosts.textContent = '';
+    containerListPosts.textContent = "";
     if (data) {
       data.forEach((doc) => {
         const dataPost = doc.data();
@@ -109,49 +111,64 @@ export const init = () => {
           templatePosts.content,
           true
         );
-        const h2userName = cloneTemplatePosts.getElementById('user-name');
-        const pDescription = cloneTemplatePosts.getElementById('description');
-        const pTime = cloneTemplatePosts.getElementById('time');
-        const btnDelete = cloneTemplatePosts.querySelector('.btn-delete');
-        btnDelete.setAttribute('data-id', doc.id);
+        const h2userName = cloneTemplatePosts.getElementById("user-name");
+        const pDescription = cloneTemplatePosts.getElementById("description");
+        const pTime = cloneTemplatePosts.getElementById("time");
+        const btnDelete = cloneTemplatePosts.querySelector(".btn-delete");
+        btnDelete.setAttribute("data-id", doc.id);
+        const btnLike = cloneTemplatePosts.querySelector(".btn-like");
+        btnLike.setAttribute("data-id", doc.id);
         h2userName.textContent = dataPost.userName;
         pDescription.textContent = dataPost.description;
-        pTime.textContent = dataPost.time?.toDate().toLocaleString() || '';
-        const textPublication = document.getElementById('texto');
+        pTime.textContent = dataPost.time?.toDate().toLocaleString() || "";
+        const textPublication = document.getElementById("texto");
         textPublication.focus();
         containerListPosts.appendChild(cloneTemplatePosts);
-          if (auth.currentUser.displayName === dataPost.userName) {
-          btnDelete.style.display= "inline-block";
-         }
+        if (auth.currentUser.displayName === dataPost.userName) {
+          btnDelete.style.display = "inline-block";
+        }
       });
       eventDelete();
       eventEdit();
+      eventLike();
     } else {
-      containerListPosts.textContent = 'No hay publicación';
+      containerListPosts.textContent = "No hay publicación";
     }
   };
 
   //Eliminar post
   function eventDelete() {
-    const btnsDelete = containerListPosts.querySelectorAll('.btn-delete');
+    const btnsDelete = containerListPosts.querySelectorAll(".btn-delete");
     btnsDelete.forEach((btn) => {
-      btn.addEventListener('click', (e) => {
+      btn.addEventListener("click", (e) => {
         e.preventDefault();
-        const id = btn.getAttribute('data-id');
+        const id = btn.getAttribute("data-id");
         deletePost(id);
         console.log(id);
-        console.log('deleting');
+        console.log("deleting");
       });
     });
   }
 
   //Editar Posts
   function eventEdit() {
-    const btnsEdit = containerListPosts.querySelectorAll('.btn-edit');
+    const btnsEdit = containerListPosts.querySelectorAll(".btn-edit");
     btnsEdit.forEach((btn) => {
-      btn.addEventListener('click', (e) => {
+      btn.addEventListener("click", (e) => {
         e.preventDefault();
-        console.log('Editing');
+        console.log("Editing");
+      });
+    });
+  }
+  function eventLike() {
+    const btnsLike = containerListPosts.querySelectorAll(".btn-like");
+    btnsLike.forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        const id = btn.getAttribute("data-id");
+        const userId= auth.currentUser.uid;
+        console.log(id, userId);
+        console.log("Liking");
       });
     });
   }
@@ -159,11 +176,11 @@ export const init = () => {
   // list posts for auth state changes
   auth.onAuthStateChanged((user) => {
     if (user) {
-      const unsub = onSnapshot(collection(db, 'post'), (querySnapshot) => {
+      const unsub = onSnapshot(collection(db, "post"), (querySnapshot) => {
         loadPosts(querySnapshot);
       });
     } else {
-      history.pushState(null, null, '/');
+      history.pushState(null, null, "/");
     }
   });
 };
