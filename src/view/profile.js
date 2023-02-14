@@ -17,9 +17,15 @@ export default () => {
       </div>
     </nav>
   </header>
+  <div class="cover-profile" id="cover">
+  <img src="./img/userPic.png" alt="" class="myPic">
+  <h2 id="profNameUser">My name</h2>
+  <h4 id="profInfo">Edad, descripción de perfil</h4>
+  <button type="button" class="editProfile" id="editProfile">Editar perfil</button>
+  </div>
   <div class="containerProfile">
     <form id="form-post" class="myPosts">
-       <h2>¿Qué vamos a compartir hoy?</h2>
+       <h3>¿Qué vamos a compartir hoy?</h3>
         <div class="header-post"> 
           <div class="img-perfil">
             <img src="./img/userPic.png" alt="" class="imgUser">
@@ -31,7 +37,7 @@ export default () => {
         <li><button id="publicar" class="postBtn"><i class="far fa-paper-plane"></i></button></li>
       </ul> 
     </form>
-    <div id="list-posts">
+    <div id="mis-posts">
     </div>
     <template id="posts">
       <div class="myPosts">
@@ -39,7 +45,7 @@ export default () => {
           <div class="img-perfil">
             <img src="./img/userPic.png" alt="" class="imgUser">
           </div>
-          <h2 id="user-name">User-name</h2> 
+          <h3 id="user-name">User-name</h3> 
         </div>
         <div>
           <!-- <img src="./img/image-post.png" alt="" class="imgUser">-->
@@ -94,14 +100,16 @@ export const init = () => {
     document.querySelector('.footer').style.display = 'none';
   });
 
+  //Cargar datos perfil
+
   writePost();
 
   // CARGAR POSTS;
   const templatePosts = document.getElementById('posts');
-  const containerListPosts = document.getElementById('list-posts');
+  const containerMisPosts = document.getElementById('mis-posts');
 
   const loadPosts = (data) => {
-    containerListPosts.textContent = '';
+    containerMisPosts.textContent = '';
     if (data) {
       data.forEach((doc) => {
         const dataPost = doc.data();
@@ -117,12 +125,13 @@ export const init = () => {
         pTime.textContent = dataPost.time?.toDate().toLocaleString() || '';
         const textPublication = document.getElementById('texto');
         textPublication.focus();
-        containerListPosts.appendChild(cloneTemplatePosts);
+        containerMisPosts.appendChild(cloneTemplatePosts);
       });
     } else {
       containerListPosts.textContent = 'No hay publicación';
     }
   };
+
 
   // list posts for auth state changes
   auth.onAuthStateChanged((user) => {
