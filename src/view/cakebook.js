@@ -1,6 +1,6 @@
 import { getAuth, signOut } from "firebase/auth";
-import { collection, addDoc, onSnapshot, Timestamp } from "firebase/firestore";
-import { db, deletePost } from "../lib/firebase-app";
+import { collection, addDoc, onSnapshot, Timestamp, doc } from "firebase/firestore";
+import { db, deletePost, addLike } from "../lib/firebase-app";
 
 const auth = getAuth();
 
@@ -48,6 +48,7 @@ export default () => {
         </div>
         <ul class="nav-myPost">
           <li><button class="postBtn btn-like" id="btn-liked" title="Like"><i class="far fa-heart"></i></button></li>
+          <li><span class="sumLikes"></span></li>
           <li><button class="postBtn btn-edit"  title="Editar"><i class="far fa-edit"></i></button></li>
           <li><button type="button" class="postBtn btn-delete" title="Eliminar"><i class="far fa-trash-alt"></i></button></li> 
         </ul>
@@ -73,8 +74,8 @@ function writePost() {
       userName: auth.currentUser.displayName,
       description: textPublication.value,
       time: Timestamp.fromDate(new Date()),
-      postLikes: [],
-      LikesSum: 0,
+      likes: [],
+      likesSum: 0,
     }).then(() => {
       formInput.reset();
       textPublication.focus();
@@ -101,7 +102,7 @@ export const init = () => {
   // CARGAR POSTS;
   const templatePosts = document.getElementById("posts");
   const containerListPosts = document.getElementById("list-posts");
-
+  let valueLikes = 0;
   const loadPosts = (data) => {
     containerListPosts.textContent = "";
     if (data) {
@@ -118,6 +119,8 @@ export const init = () => {
         btnDelete.setAttribute("data-id", doc.id);
         const btnLike = cloneTemplatePosts.querySelector(".btn-like");
         btnLike.setAttribute("data-id", doc.id);
+        const spanSumLikes = cloneTemplatePosts.querySelector(".sumLikes");
+        valueLikes = spanSumLikes.textContent = dataPost.likesSum;
         h2userName.textContent = dataPost.userName;
         pDescription.textContent = dataPost.description;
         pTime.textContent = dataPost.time?.toDate().toLocaleString() || "";
@@ -169,6 +172,7 @@ export const init = () => {
         const userId= auth.currentUser.uid;
         console.log(id, userId);
         console.log("Liking");
+        addLike(id, userId) 
       });
     });
   }
