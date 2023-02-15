@@ -46,9 +46,11 @@ export default () => {
           <p id="description">Aquí va el post</p>
           <p id="time" class="time">Time</p>
         </div>
-        <ul class="nav-myPost">
-          <li><button class="postBtn btn-like" id="btn-liked" title="Like"><i class="far fa-heart"></i></button></li>
+        <ul class="nav-myPost nav-posts">
+          <div class="div-like">
+          <li><button class="postBtn btn-like" id="btn-liked" title="Like"><i class="far fa-heart i-like"></i></button></li>
           <li><span class="sumLikes"></span></li>
+          </div>
           <li><button class="postBtn btn-edit"  title="Editar"><i class="far fa-edit"></i></button></li>
           <li><button type="button" class="postBtn btn-delete" title="Eliminar"><i class="far fa-trash-alt"></i></button></li> 
         </ul>
@@ -115,7 +117,9 @@ export const init = () => {
         const pTime = cloneTemplatePosts.getElementById("time");
         const btnDelete = cloneTemplatePosts.querySelector(".btn-delete");
         btnDelete.setAttribute("data-id", doc.id);
+        const btnEdit = cloneTemplatePosts.querySelector(".btn-edit");
         const btnLike = cloneTemplatePosts.querySelector(".btn-like");
+        const iLike = cloneTemplatePosts.querySelector('.i-like');
         btnLike.setAttribute("data-id", doc.id);
         const spanSumLikes = cloneTemplatePosts.querySelector(".sumLikes");
         spanSumLikes.textContent = dataPost.likes.length;
@@ -127,6 +131,10 @@ export const init = () => {
         containerListPosts.appendChild(cloneTemplatePosts);
         if (auth.currentUser.displayName === dataPost.userName) {
           btnDelete.style.display = "inline-block";
+          btnEdit.style.display = 'inline-block';
+        }
+        if(dataPost.likes.includes(auth.currentUser.uid)){
+         iLike.style.color = 'rgb(212, 23, 105)';
         }
       });
       eventDelete();
@@ -168,9 +176,7 @@ export const init = () => {
         e.preventDefault();
         const id = btn.getAttribute("data-id");
         const userId= auth.currentUser.uid;
-        console.log(id, userId);
-        console.log("Liking");
-        addLike(id, userId) 
+        addLike(id, userId)
       });
     });
   }

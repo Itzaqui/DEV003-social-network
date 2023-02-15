@@ -65,7 +65,8 @@
   font-weight: 500;
   font-size: 0.9em;
   justify-content: center;
-  margin-bottom: 0.6em;
+  margin-bottom: 1em;
+  margin-top: 0.5em;
 }
 
 
@@ -81,7 +82,7 @@
   justify-content: center;
   align-items: center;
   font-weight: 600;
-  margin-bottom: 0.6em;
+  margin-bottom: 1em;
 }
 
 .login-container .log-button:hover {

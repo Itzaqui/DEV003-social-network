@@ -26,7 +26,7 @@ export const db = getFirestore(app);
 export const deletePost = (id) => deleteDoc(doc(db, 'post', id));
 
 export const addLike = (id, userId) => {
-  updateDoc(doc(db, 'post', id), { likes: arrayUnion(userId), sumLikes: 0 + 1 });
+  updateDoc(doc(db, 'post', id), { likes: arrayUnion(userId) });
 };
 
 export const removeLike = (id, userId) => {

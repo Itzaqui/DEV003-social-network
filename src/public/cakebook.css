@@ -88,12 +88,21 @@
 .nav-myPost{
   display: flex;
   list-style: none;
-  margin-left: 10em;
   align-items: center;
-  justify-content: space-around;
+  justify-content: left;
   margin-top: 0%;
   margin-bottom: 0.5em;
+  padding-left: 0;
+  gap: 0.2em;
+}
 
+.div-like{
+  display: flex;
+}
+
+.i-like:hover{
+  color: rgb(212, 23, 105);
+  cursor: pointer;
 }
 
 .postBtn{
@@ -108,31 +117,6 @@
 
 #publicar{
   margin-right: 0.5em;
-}
-
-
-.cakebook-container .friendsPosts {
-  display: flex;
-  /* background-color: #f5eff0; */
-  background-clip: border-box;
-  border: 1px solid rgba(0, 0, 0, 0.09);
-  border-radius: 0.4rem;
-  padding: 1.25rem 1.25rem;
-  flex-direction: column;
-  font-size: 0.9em;
-}
-
-.cakebook-container .friendsText {
-  align-items: flex-end;
-}
-.cakebook-container .userPicBtn {
-  height: 5em;
-  width: 5em;
-  border-radius: 6em;
-  background: none;
-  border: none;
-  margin-top: 0.7em;
-  margin-bottom: 0.7em;
 }
 
 .cakebook-container .imgUser {
@@ -155,6 +139,6 @@
   margin-right: 1.5em;
 }
 
-.btn-delete{
+.btn-delete, .btn-edit{
   display: none;
 }
