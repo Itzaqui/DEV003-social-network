@@ -55,7 +55,7 @@
 }
 
 .profile-container .myPic{
-  margin-top: 2em;
+  margin-top: 1.5em;
   display: flex;
   justify-content: center;
   height: 10em;
@@ -74,7 +74,7 @@
   display: flex;
   flex-direction: column;
   color: rgb(148, 147, 147);
-  font-size: 0.5em;
+  font-size: 1em;
   align-items: center;
   font-family: 'Trebuchet MS';
 }
@@ -86,11 +86,11 @@
   background-color: none;
 }
 
-.profile-container .containerTimeline {
+.profile-container .containerProfile {
   display: grid;
   place-items: center;
   font-family: 'Montserrat', sans-serif;
-  margin-top: 6em;
+  margin-top: 0.5em;
 }
 
 .profile-container .myPosts{
