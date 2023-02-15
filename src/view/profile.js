@@ -19,7 +19,7 @@ export default () => {
   </header>
   <div class="cover-profile" id="cover">
   <img src="./img/userPic.png" alt="" class="myPic">
-  <h2 id="profNameUser">My name</h2>
+  <h2 id="profNameUser">My Name</h2>
   <h4 id="profInfo">Edad, descripción de perfil</h4>
   <button type="button" class="editProfile" id="editProfile">Editar perfil</button>
   </div>
@@ -63,9 +63,11 @@ export default () => {
   `;
   document.querySelector('.footer').style.display = 'flex';
 
+
   const profileContainer = document.createElement('div');
   profileContainer.classList.add('profile-container');
   profileContainer.innerHTML = viewProfile;
+
   return profileContainer;
 };
 
@@ -100,38 +102,9 @@ export const init = () => {
     document.querySelector('.footer').style.display = 'none';
   });
 
-  //Cargar datos perfil
-
+  document.getElementById('profNameUser').innerHTML = auth.currentUser.displayName;
   writePost();
-
-  // CARGAR POSTS;
-  const templatePosts = document.getElementById('posts');
-  const containerMisPosts = document.getElementById('mis-posts');
-
-  const loadPosts = (data) => {
-    containerMisPosts.textContent = '';
-    if (data) {
-      data.forEach((doc) => {
-        const dataPost = doc.data();
-        const cloneTemplatePosts = document.importNode(
-          templatePosts.content,
-          true
-        );
-        const h2userName = cloneTemplatePosts.getElementById('user-name');
-        const pDescription = cloneTemplatePosts.getElementById('description');
-        const pTime = cloneTemplatePosts.getElementById('time');
-        h2userName.textContent = dataPost.userName;
-        pDescription.textContent = dataPost.description;
-        pTime.textContent = dataPost.time?.toDate().toLocaleString() || '';
-        const textPublication = document.getElementById('texto');
-        textPublication.focus();
-        containerMisPosts.appendChild(cloneTemplatePosts);
-      });
-    } else {
-      containerListPosts.textContent = 'No hay publicación';
-    }
-  };
-
+};
 
   // list posts for auth state changes
   auth.onAuthStateChanged((user) => {
@@ -143,4 +116,3 @@ export const init = () => {
       history.pushState(null, null, '/');
     }
   });
-};
