@@ -129,12 +129,12 @@
 .nav-myPost{
   display: flex;
   list-style: none;
-  margin-left: 10em;
   align-items: center;
-  justify-content: space-around;
+  justify-content: left;
   margin-top: 0%;
   margin-bottom: 0.5em;
-
+  padding-left: 0;
+  gap: 0.5em;
 }
 
 .postBtn{
