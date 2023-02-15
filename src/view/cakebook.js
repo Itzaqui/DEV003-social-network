@@ -75,7 +75,6 @@ function writePost() {
       description: textPublication.value,
       time: Timestamp.fromDate(new Date()),
       likes: [],
-      likesSum: 0,
     }).then(() => {
       formInput.reset();
       textPublication.focus();
@@ -102,7 +101,6 @@ export const init = () => {
   // CARGAR POSTS;
   const templatePosts = document.getElementById("posts");
   const containerListPosts = document.getElementById("list-posts");
-  let valueLikes = 0;
   const loadPosts = (data) => {
     containerListPosts.textContent = "";
     if (data) {
@@ -120,7 +118,7 @@ export const init = () => {
         const btnLike = cloneTemplatePosts.querySelector(".btn-like");
         btnLike.setAttribute("data-id", doc.id);
         const spanSumLikes = cloneTemplatePosts.querySelector(".sumLikes");
-        valueLikes = spanSumLikes.textContent = dataPost.likesSum;
+        spanSumLikes.textContent = dataPost.likes.length;
         h2userName.textContent = dataPost.userName;
         pDescription.textContent = dataPost.description;
         pTime.textContent = dataPost.time?.toDate().toLocaleString() || "";
