@@ -130,12 +130,12 @@ export const init = () => {
         btnLike.setAttribute('data-id', doc.id);
         const spanSumLikes = cloneTemplatePosts.querySelector('.sumLikes');
 
-        // if (dataPost.likes !== undefined && dataPost.likes !== null) {
+        // if (dataPost.likes && dataPost.likes.length) {
         //   spanSumLikes.textContent = dataPost.likes.length;
         // } else {
         //   spanSumLikes.textContent = '';
         // }
-        spanSumLikes.textContent = dataPost.likes?.length ?? '';
+        spanSumLikes.textContent = dataPost.likes?.length || '';
         h2userName.textContent = dataPost.userName;
         pDescription.textContent = dataPost.description;
         pTime.textContent = dataPost.time?.toDate().toLocaleString() || '';
