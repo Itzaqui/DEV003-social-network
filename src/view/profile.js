@@ -106,7 +106,7 @@ export const init = () => {
   writePost();
 };
 
-  // list posts for auth state changes
+/*  // list posts for auth state changes
   auth.onAuthStateChanged((user) => {
     if (user) {
       const unsub = onSnapshot(collection(db, 'post'), (querySnapshot) => {
@@ -115,4 +115,4 @@ export const init = () => {
     } else {
       history.pushState(null, null, '/');
     }
-  });
+  });*/
