@@ -1,6 +1,6 @@
 /* eslint-disable no-alert */
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
-
+import { auth } from '../lib/firebase-app';
 import { loginWithGoogle } from '../lib/google-auth';
 
 export default () => {
@@ -41,8 +41,6 @@ function loginWithEmailAndPassword(e) {
   e.preventDefault();
   const email = document.getElementById('userEmail').value;
   const password = document.getElementById('password').value;
-
-  const auth = getAuth();
   signInWithEmailAndPassword(auth, email, password)
     .then(() => {
       history.pushState(null, null, '/cakebook');
@@ -72,8 +70,6 @@ export const init = () => {
   buttonGoogle.addEventListener('click', loginWithGoogle);
 
   // observatorio de estado
-
-  const auth = getAuth();
   auth.onAuthStateChanged((user) => {
     if (user) {
       history.pushState(null, null, '/cakebook');
