@@ -1,4 +1,4 @@
-import { getAuth, signOut } from 'firebase/auth';
+import { signOut } from 'firebase/auth';
 import {
   collection,
   addDoc,
@@ -6,9 +6,8 @@ import {
   Timestamp,
   doc,
 } from 'firebase/firestore';
-import { db, deletePost, addLike } from '../lib/firebase-app';
+import { db, deletePost, addLike, createPost, auth } from '../lib/firebase-app';
 
-const auth = getAuth();
 
 export default () => {
   const viewTimeline = /* html */ `
@@ -75,18 +74,17 @@ export default () => {
 //CREATE POSTS:
 function writePost() {
   const formInput = document.getElementById('form-post');
-  const textPublication = document.getElementById('texto');
   formInput.addEventListener('submit', (e) => {
     e.preventDefault();
-    addDoc(collection(db, 'post'), {
-      userName: auth.currentUser.displayName,
-      description: textPublication.value,
-      time: Timestamp.fromDate(new Date()),
-      LikesSum: 0,
-      likes: [],
-    }).then(() => {
-      formInput.reset();
-      textPublication.focus();
+    const textPublication = document.getElementById('texto');
+    createPost({
+    userName: auth.currentUser.displayName,
+    description: textPublication.value,
+    time: Timestamp.fromDate(new Date()),
+    LikesSum: 0,
+    likes: [],
+  }).then(() => {
+      textPublication.value='';
     });
   });
 }

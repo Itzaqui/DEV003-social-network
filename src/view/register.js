@@ -1,10 +1,9 @@
 /* eslint-disable no-alert */
 import {
-  getAuth,
   createUserWithEmailAndPassword,
   updateProfile,
 } from 'firebase/auth';
-
+import { auth } from '../lib/firebase-app';
 import { loginWithGoogle } from '../lib/google-auth';
 
 export default () => {
@@ -52,8 +51,6 @@ export default () => {
 
 function handleError(error) {
   const errorCode = error.code;
-  const errorMessage = error.message;
-  console.log(errorCode, errorMessage);
   const errors = {
     'auth/missing-email': 'Por favor, introduce un correo.',
     'auth/invalid-email': 'Correo inválido.',
@@ -62,7 +59,6 @@ function handleError(error) {
       'Por favor, introduce una contraseña que contenga más de 6 carácteres.',
     'auth/internal-error': 'Por favor, introduce una contraseña.',
   };
-
   const msgError = errors[errorCode] || 'Error, intente nuevamente.';
   alert(msgError);
 }
@@ -86,7 +82,6 @@ function registeredUser(userCredential, userForm) {
 
 function registerWithEmailAndPassword(e) {
   e.preventDefault();
-  const auth = getAuth();
   const form = document.querySelector('.form-btn');
   const data = Object.fromEntries(new FormData(form));
   createUserWithEmailAndPassword(auth, data.email, data.password)
@@ -101,7 +96,6 @@ export const init = () => {
   const buttonGoogle = document.querySelector('#btn-google-register');
   buttonGoogle.addEventListener('click', loginWithGoogle);
 
-  const auth = getAuth();
   auth.onAuthStateChanged((user) => {
     if (user) {
       form.reset();

@@ -1,8 +1,6 @@
-import { getAuth, signOut } from 'firebase/auth';
-import { collection, addDoc, onSnapshot, Timestamp } from 'firebase/firestore';
-import { db } from '../lib/firebase-app';
-
-const auth = getAuth();
+import { signOut } from 'firebase/auth';
+import { collection, addDoc, Timestamp } from 'firebase/firestore';
+import { db, auth } from '../lib/firebase-app';
 
 export default () => {
   const viewProfile = /* html */ `
@@ -63,7 +61,6 @@ export default () => {
   `;
   document.querySelector('.footer').style.display = 'flex';
 
-
   const profileContainer = document.createElement('div');
   profileContainer.classList.add('profile-container');
   profileContainer.innerHTML = viewProfile;
@@ -71,12 +68,13 @@ export default () => {
   return profileContainer;
 };
 
-//CREATE POSTS:
+// CREATE POSTS:
+
 function writePost() {
   const formInput = document.getElementById('form-post');
-  const textPublication = document.getElementById('texto');
   formInput.addEventListener('submit', (e) => {
     e.preventDefault();
+    const textPublication = document.getElementById('texto');
     addDoc(collection(db, 'post'), {
       userName: auth.currentUser.displayName,
       description: textPublication.value,
@@ -101,18 +99,18 @@ export const init = () => {
       });
     document.querySelector('.footer').style.display = 'none';
   });
-
-  document.getElementById('profNameUser').innerHTML = auth.currentUser.displayName;
   writePost();
+  document.getElementById('profNameUser').innerHTML = auth.currentUser.displayName;
 };
 
-/*  // list posts for auth state changes
-  auth.onAuthStateChanged((user) => {
-    if (user) {
-      const unsub = onSnapshot(collection(db, 'post'), (querySnapshot) => {
-        loadPosts(querySnapshot); 
-      });
-    } else {
-      history.pushState(null, null, '/');
-    }
-  });*/
+/// list posts for auth state changes
+auth.onAuthStateChanged((user) => {
+  if (user) {
+    history.pushState(null, null, '/profile');
+    // const unsub = onSnapshot(collection(db, 'post'), (querySnapshot) => {
+    //  loadPosts(querySnapshot);
+    // });
+  } else {
+    history.pushState(null, null, '/');
+  }
+});

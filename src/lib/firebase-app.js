@@ -1,6 +1,16 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from 'firebase/app';
-import { getFirestore, deleteDoc, doc, updateDoc, arrayUnion, arrayRemove } from 'firebase/firestore';
+import {
+  getFirestore,
+  deleteDoc,
+  doc,
+  updateDoc,
+  arrayUnion,
+  arrayRemove,
+  collection,
+  addDoc,
+} from 'firebase/firestore';
+import { getAuth } from 'firebase/auth';
 
 // import { getAnalytics } from "firebase/analytics";
 // TODO: Add SDKs for Firebase products that you want to use
@@ -32,3 +42,7 @@ export const addLike = (id, userId) => {
 export const removeLike = (id, userId) => {
   updateDoc(doc(db, 'post', id), { likes: arrayRemove(userId) });
 };
+
+export const createPost = (data) => addDoc(collection(db, 'post'), data);
+
+export const auth = getAuth();
