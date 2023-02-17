@@ -1,5 +1,5 @@
 /* eslint-disable no-alert */
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../lib/firebase-app';
 import { loginWithGoogle } from '../lib/google-auth';
 
@@ -73,6 +73,7 @@ export const init = () => {
   auth.onAuthStateChanged((user) => {
     if (user) {
       history.pushState(null, null, '/cakebook');
+      history.pushState(null, null, '/profile');
     }
   });
 };

@@ -106,6 +106,7 @@ export const init = () => {
 /// list posts for auth state changes
 auth.onAuthStateChanged((user) => {
   if (user) {
+    history.pushState(null, null, '/profile');
     // const unsub = onSnapshot(collection(db, 'post'), (querySnapshot) => {
     //  loadPosts(querySnapshot);
     // });

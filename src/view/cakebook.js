@@ -84,7 +84,7 @@ function writePost() {
     LikesSum: 0,
     likes: [],
   }).then(() => {
-      formInput.reset();
+      textPublication.value='';
     });
   });
 }

@@ -45,4 +45,4 @@ export const removeLike = (id, userId) => {
 
 export const createPost = (data) => addDoc(collection(db, 'post'), data);
 
-export let auth = getAuth();
+export const auth = getAuth();

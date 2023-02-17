@@ -9,17 +9,18 @@ describe('myFunction', () => {
 });
 
 describe('writePost', () => {
-  it('debería ser una función', () => { 
+  it('debería ser una función', () => {
     document.innerHTML = cakebook();
     document.getElementById('texto').value = 'Texto del post';
     writePost();
     document.getElementById('publicar').click();
     expect(createPost).toHaveBeenCalledWith(
-      {userName: auth.currentUser.displayName,
-      description: 'Texto del post',
-      time: Timestamp.fromDate(new Date()),
-      LikesSum: 0,
-      likes: [],
+      {
+        userName: auth.currentUser.displayName,
+        description: 'Texto del post',
+        time: Timestamp.fromDate(new Date()),
+        LikesSum: 0,
+        likes: [],
       });
   });
 });
