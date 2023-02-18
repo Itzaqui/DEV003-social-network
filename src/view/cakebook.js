@@ -1,13 +1,14 @@
 import { signOut } from 'firebase/auth';
+import { collection, onSnapshot, Timestamp } from 'firebase/firestore';
 import {
-  collection,
-  addDoc,
-  onSnapshot,
-  Timestamp,
-  doc,
-} from 'firebase/firestore';
-import { db, deletePost, addLike, createPost, auth } from '../lib/firebase-app';
-
+  db,
+  deletePost,
+  addLike,
+  createPost,
+  auth,
+  getPost,
+  updatePost,
+} from '../lib/firebase-app';
 
 export default () => {
   const viewTimeline = /* html */ `
@@ -72,20 +73,32 @@ export default () => {
 };
 
 //CREATE POSTS:
+
+let editStatus = false;
+let idEdit = '';
+
 function writePost() {
-  const formInput = document.getElementById('form-post');
-  formInput.addEventListener('submit', (e) => {
+  const formCreatePost = document.getElementById('form-post');
+  formCreatePost.addEventListener('submit', (e) => {
     e.preventDefault();
     const textPublication = document.getElementById('texto');
-    createPost({
-    userName: auth.currentUser.displayName,
-    description: textPublication.value,
-    time: Timestamp.fromDate(new Date()),
-    LikesSum: 0,
-    likes: [],
-  }).then(() => {
-      textPublication.value='';
-    });
+    if (!editStatus) {
+      createPost({
+        userName: auth.currentUser.displayName,
+        description: textPublication.value,
+        time: Timestamp.fromDate(new Date()),
+        LikesSum: 0,
+        likes: [],
+      }).then(() => {
+        textPublication.value = '';
+        formCreatePost.reset();
+      });
+    } else {
+      updatePost(idEdit, { description: textPublication.value }).then(() => {
+        editStatus = false;
+        formCreatePost.reset();
+      });
+    }
   });
 }
 
@@ -123,6 +136,7 @@ export const init = () => {
         const btnDelete = cloneTemplatePosts.querySelector('.btn-delete');
         btnDelete.setAttribute('data-id', doc.id);
         const btnEdit = cloneTemplatePosts.querySelector('.btn-edit');
+        btnEdit.setAttribute('data-id', doc.id);
         const btnLike = cloneTemplatePosts.querySelector('.btn-like');
         const iLike = cloneTemplatePosts.querySelector('.i-like');
         btnLike.setAttribute('data-id', doc.id);
@@ -172,11 +186,20 @@ export const init = () => {
 
   //Editar Posts
   function eventEdit() {
+    const header = document.querySelector('.header');
+    const formCreatePost = document.getElementById('form-post');
     const btnsEdit = containerListPosts.querySelectorAll('.btn-edit');
     btnsEdit.forEach((btn) => {
       btn.addEventListener('click', (e) => {
         e.preventDefault();
-        console.log('Editing');
+        idEdit = btn.getAttribute('data-id');
+        getPost(idEdit).then((doc) => {
+          const descriptionPost = doc.data().description;
+          formCreatePost['texto'].value = descriptionPost;
+          formCreatePost['texto'].focus();
+          header.scrollIntoView();
+        });
+        editStatus = true;
       });
     });
   }
