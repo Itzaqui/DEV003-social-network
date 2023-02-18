@@ -100,17 +100,16 @@ export const init = () => {
     document.querySelector('.footer').style.display = 'none';
   });
   writePost();
-  document.getElementById('profNameUser').innerHTML = auth.currentUser.displayName;
-};
 
-/// list posts for auth state changes
-auth.onAuthStateChanged((user) => {
-  if (user) {
-    history.pushState(null, null, '/profile');
-    // const unsub = onSnapshot(collection(db, 'post'), (querySnapshot) => {
-    //  loadPosts(querySnapshot);
-    // });
-  } else {
-    history.pushState(null, null, '/');
-  }
-});
+  auth.onAuthStateChanged((user) => {
+    if (!user) {
+      history.pushState(null, null, '/');
+      document.querySelector('.footer').style.display = 'none';
+    }
+    const loggedUser = auth.currentUser;
+    if (loggedUser) {
+      const h2Name = document.getElementById('profNameUser');
+      h2Name.textContent = auth.currentUser.displayName;
+    }
+  });
+};
