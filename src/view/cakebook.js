@@ -6,7 +6,7 @@ import {
   Timestamp,
   doc,
 } from 'firebase/firestore';
-import { db, deletePost, addLike, createPost, auth } from '../lib/firebase-app';
+import { db, deletePost, addLike, createPost, auth, getPost, removeLike } from '../lib/firebase-app';
 
 
 export default () => {
@@ -188,7 +188,17 @@ export const init = () => {
         e.preventDefault();
         const id = btn.getAttribute('data-id');
         const userId = auth.currentUser.uid;
-        addLike(id, userId);
+        getPost(id)
+        .then((docLike) => {
+          const userLike = docLike.data().likes;
+          if(userLike.includes(userId)) {
+            removeLike(id, userId);
+          } else {
+            addLike(id, userId);
+          }
+        }).catch((error) => {
+          console.log(error);
+        });
       });
     });
   }

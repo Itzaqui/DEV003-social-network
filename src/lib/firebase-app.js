@@ -9,6 +9,7 @@ import {
   arrayRemove,
   collection,
   addDoc,
+  getDoc
 } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
 
@@ -42,6 +43,8 @@ export const addLike = (id, userId) => {
 export const removeLike = (id, userId) => {
   updateDoc(doc(db, 'post', id), { likes: arrayRemove(userId) });
 };
+
+export const getPost = (id) => getDoc(doc(db, 'post', id));
 
 export const createPost = (data) => addDoc(collection(db, 'post'), data);
 
