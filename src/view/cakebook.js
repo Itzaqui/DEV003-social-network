@@ -1,5 +1,5 @@
 import { signOut } from 'firebase/auth';
-import { collection, onSnapshot, Timestamp } from 'firebase/firestore';
+
 import {
   db,
   deletePost,
@@ -9,6 +9,14 @@ import {
   getPost,
   updatePost,
 } from '../lib/firebase-app';
+import { 
+  collection,
+  addDoc,
+  onSnapshot,
+  Timestamp,
+  doc,
+} from 'firebase/firestore';
+import { db, deletePost, addLike, createPost, auth, getPost, removeLike } from '../lib/firebase-app';
 
 export default () => {
   const viewTimeline = /* html */ `
@@ -211,7 +219,17 @@ export const init = () => {
         e.preventDefault();
         const id = btn.getAttribute('data-id');
         const userId = auth.currentUser.uid;
-        addLike(id, userId);
+        getPost(id)
+        .then((docLike) => {
+          const userLike = docLike.data().likes;
+          if(userLike.includes(userId)) {
+            removeLike(id, userId);
+          } else {
+            addLike(id, userId);
+          }
+        }).catch((error) => {
+          console.log(error);
+        });
       });
     });
   }
