@@ -1,5 +1,4 @@
 import { signOut } from 'firebase/auth';
-
 import {
   db,
   deletePost,
@@ -8,6 +7,7 @@ import {
   auth,
   getPost,
   updatePost,
+  removeLike,
 } from '../lib/firebase-app';
 import { 
   collection,
@@ -16,7 +16,6 @@ import {
   Timestamp,
   doc,
 } from 'firebase/firestore';
-import { db, deletePost, addLike, createPost, auth, getPost, removeLike } from '../lib/firebase-app';
 
 export default () => {
   const viewTimeline = /* html */ `
