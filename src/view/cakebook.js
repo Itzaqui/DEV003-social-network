@@ -8,13 +8,12 @@ import {
   getPost,
   updatePost,
   removeLike,
+  orderedPost
 } from '../lib/firebase-app';
 import { 
   collection,
-  addDoc,
   onSnapshot,
-  Timestamp,
-  doc,
+  Timestamp
 } from 'firebase/firestore';
 
 export default () => {
@@ -233,12 +232,13 @@ export const init = () => {
     });
   }
 
+
+
   // list posts for auth state changes
   auth.onAuthStateChanged((user) => {
     if (user) {
-      const unsub = onSnapshot(collection(db, 'post'), (querySnapshot) => {
-        loadPosts(querySnapshot);
-      });
+      orderedPost(loadPosts);  
+      ;
     } else {
       history.pushState(null, null, '/');
     }

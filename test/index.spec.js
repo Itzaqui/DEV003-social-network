@@ -16,9 +16,9 @@ describe('writePost', () => {
     document.getElementById('publicar').click();
     expect(createPost).toHaveBeenCalledWith(
       {
-        userName: auth.currentUser.displayName,
+        userName: 'nombre',
         description: 'Texto del post',
-        time: Timestamp.fromDate(new Date()),
+        time: 'hora',
         LikesSum: 0,
         likes: [],
       });

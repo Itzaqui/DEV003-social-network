@@ -1,9 +1,8 @@
 /* eslint-disable no-alert */
 import {
-  createUserWithEmailAndPassword,
   updateProfile,
 } from 'firebase/auth';
-import { auth } from '../lib/firebase-app';
+import { auth, register } from '../lib/firebase-app';
 import { loginWithGoogle } from '../lib/google-auth';
 
 export default () => {
@@ -84,7 +83,7 @@ function registerWithEmailAndPassword(e) {
   e.preventDefault();
   const form = document.querySelector('.form-btn');
   const data = Object.fromEntries(new FormData(form));
-  createUserWithEmailAndPassword(auth, data.email, data.password)
+  register(data.email, data.password)
     .then((userCredential) => registeredUser(userCredential, data))
     .catch(handleError);
 }
