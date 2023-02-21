@@ -31,8 +31,9 @@ export default () => {
           <textarea  class="text-post" id="texto" placeholder="" autofocus></textarea>
         </div>
       <ul class="nav-myPost">
+        <li><button id="publicar" class="postBtn"><i class="far fa-paper-plane"></i></button>
         <li><button type="button" class="postBtn" id="btn-photo"><i class="fas fa-camera-retro"></i></button></li>
-        <li><button id="publicar" class="postBtn"><i class="far fa-paper-plane"></i></button></li>
+       </li>
       </ul> 
     </form>
     <div id="mis-posts">
