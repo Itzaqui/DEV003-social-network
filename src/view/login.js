@@ -1,6 +1,5 @@
 /* eslint-disable no-alert */
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../lib/firebase-app';
+import { auth, login } from '../lib/firebase-app';
 import { loginWithGoogle } from '../lib/google-auth';
 
 export default () => {
@@ -41,7 +40,7 @@ function loginWithEmailAndPassword(e) {
   e.preventDefault();
   const email = document.getElementById('userEmail').value;
   const password = document.getElementById('password').value;
-  signInWithEmailAndPassword(auth, email, password)
+  login(email, password)
     .then(() => {
       history.pushState(null, null, '/cakebook');
     })
