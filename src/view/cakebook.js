@@ -1,6 +1,5 @@
 import { signOut } from 'firebase/auth';
 import {
-  db,
   deletePost,
   addLike,
   createPost,
@@ -8,13 +7,9 @@ import {
   getPost,
   updatePost,
   removeLike,
-  orderedPost
+  orderedPost,
 } from '../lib/firebase-app';
-import { 
-  collection,
-  onSnapshot,
-  Timestamp
-} from 'firebase/firestore';
+import { Timestamp } from 'firebase/firestore';
 
 export default () => {
   const viewTimeline = /* html */ `
@@ -29,6 +24,15 @@ export default () => {
       </div>
     </nav>
   </header>
+  <div class="container">
+  <div class="menu-nav-desktop"> 
+    <ul class="nav-desktop">
+      <li><button type="button" class="btnMenu" id="homeBtn"><i class="fas fa-home"></i></button><span>INICIO</span></li>
+      <li> <button type="button" class="btnMenu" id="searchBtn"><i class="fas fa-search"></i></button><span>BUSCAR</span></li>
+      <li> <button type="button" class="btnMenu" id="friendsBtn"><i class="fas fa-users"></i></button><span>AMIGOS</span></li>
+      <li><button type="button" class="btnMenu" id="perfilBtn"><i class="fas fa-user-circle"></i></button><span>PERFIL</span></li> 
+    </ul>
+  </div>
   <div class="containerTimeline">
     <form id="form-post" class="myPosts">
        <h2>¿Qué vamos a compartir hoy?</h2>
@@ -38,15 +42,15 @@ export default () => {
           </div>
           <textarea  class="text-post" id="texto" placeholder="" autofocus></textarea>
         </div>
-      <ul class="nav-myPost">
-        <li><button type="button" class="postBtn" id="btn-photo" title="Subir foto"><i class="fas fa-camera-retro"></i></button></li>
+      <ul class="nav-myPost btns-post">
         <li><button id="publicar" class="postBtn" title="Publicar"><i class="far fa-paper-plane"></i></button></li>
+        <li><button type="button" class="postBtn" id="btn-photo" title="Subir foto"><i class="fas fa-camera-retro"></i></button></li> 
       </ul> 
     </form>
     <div id="list-posts">
     </div>
     <template id="posts">
-      <div class="myPosts">
+      <div class="post">
         <div class="header-post"> 
           <div class="img-perfil">
             <img src="./img/userPic.png" alt="" class="imgUser">
@@ -67,7 +71,22 @@ export default () => {
           <li><button type="button" class="postBtn btn-delete" title="Eliminar"><i class="far fa-trash-alt"></i></button></li> 
         </ul>
       </div>
-    </template>    
+      <div class="modal-deletePost">
+        <div class="modal-content">
+          <div class="close-title">
+              <p class="modal-title">¿Eliminar publicación?</p> 
+              <div class="btn-modal">
+                <button class="closed-modal">X</button>
+              </div> 
+          </div>
+          <p class="text-deletePost">¿Seguro que quieres eliminar esta publicación?</p>
+          <div class="btn-modal">
+          <button class="delete-post">Aceptar</button>
+          </div>
+        </div>
+      </div> 
+    </template> 
+  </div>
   </div>
   `;
   document.querySelector('.footer').style.display = 'flex';
@@ -140,19 +159,14 @@ export const init = () => {
         const pDescription = cloneTemplatePosts.getElementById('description');
         const pTime = cloneTemplatePosts.getElementById('time');
         const btnDelete = cloneTemplatePosts.querySelector('.btn-delete');
-        btnDelete.setAttribute('data-id', doc.id);
+        const btnDeletePost = cloneTemplatePosts.querySelector('.delete-post');
+        btnDeletePost.setAttribute('data-id', doc.id);
         const btnEdit = cloneTemplatePosts.querySelector('.btn-edit');
         btnEdit.setAttribute('data-id', doc.id);
         const btnLike = cloneTemplatePosts.querySelector('.btn-like');
         const iLike = cloneTemplatePosts.querySelector('.i-like');
         btnLike.setAttribute('data-id', doc.id);
         const spanSumLikes = cloneTemplatePosts.querySelector('.sumLikes');
-
-        // if (dataPost.likes && dataPost.likes.length) {
-        //   spanSumLikes.textContent = dataPost.likes.length;
-        // } else {
-        //   spanSumLikes.textContent = '';
-        // }
         spanSumLikes.textContent = dataPost.likes?.length || '';
         h2userName.textContent = dataPost.userName;
         pDescription.textContent = dataPost.description;
@@ -179,17 +193,27 @@ export const init = () => {
   //Eliminar post
   function eventDelete() {
     const btnsDelete = containerListPosts.querySelectorAll('.btn-delete');
+    const modalDelete = containerListPosts.querySelector('.modal-deletePost');
+    const btnDeletePost = containerListPosts.querySelector('.delete-post');
+    const btnClosedModal = containerListPosts.querySelector('.closed-modal');
     btnsDelete.forEach((btn) => {
       btn.addEventListener('click', (e) => {
         e.preventDefault();
-        const id = btn.getAttribute('data-id');
-        deletePost(id);
-        console.log(id);
-        console.log('deleting');
+        if (btn.addEventListener) {
+          modalDelete.style.display = 'grid';
+          
+        }
+        btnDeletePost.addEventListener('click', (e) => {
+          const id = btnDeletePost.getAttribute('data-id');
+          deletePost(id);
+        });
       });
     });
+  
+    btnClosedModal.addEventListener('click', (e) => {
+      modalDelete.style.display = 'none';
+    });
   }
-
   //Editar Posts
   function eventEdit() {
     const header = document.querySelector('.header');
@@ -218,27 +242,25 @@ export const init = () => {
         const id = btn.getAttribute('data-id');
         const userId = auth.currentUser.uid;
         getPost(id)
-        .then((docLike) => {
-          const userLike = docLike.data().likes;
-          if(userLike.includes(userId)) {
-            removeLike(id, userId);
-          } else {
-            addLike(id, userId);
-          }
-        }).catch((error) => {
-          console.log(error);
-        });
+          .then((docLike) => {
+            const userLike = docLike.data().likes;
+            if (userLike.includes(userId)) {
+              removeLike(id, userId);
+            } else {
+              addLike(id, userId);
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       });
     });
   }
 
-
-
   // list posts for auth state changes
   auth.onAuthStateChanged((user) => {
     if (user) {
-      orderedPost(loadPosts);  
-      ;
+      orderedPost(loadPosts);
     } else {
       history.pushState(null, null, '/');
     }

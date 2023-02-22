@@ -5,9 +5,8 @@
 .cakebook-container {
   display: flex;
   flex-direction: column;
-  height: 100%
+  height: 100%;
 }
-
 
 .cakebook-container h1 {
   display: flex;
@@ -23,26 +22,29 @@
   background-color: #fdd4e5;
   position: fixed;
   width: 100%;
-  margin-bottom: 6em;
 }
 
-.cakebook-container .nav{
+.cakebook-container .nav {
   display: flex;
   align-items: center;
-  justify-content:space-between;
+  justify-content: space-between;
   flex-direction: row;
   margin-right: 0.5em;
 }
 
-.cakebook-container .signOut{
+.cakebook-container .signOut {
   display: flex;
   align-items: center;
   border: none;
   background: none;
 }
 
-.cakebook-container .btn-signOut{
+.cakebook-container .btn-signOut {
   display: flex;
+  
+}
+.signOut{
+  font-size: 1.2em;
 }
 
 .cakebook-container .containerTimeline {
@@ -52,7 +54,7 @@
   margin-top: 6em;
 }
 
-.cakebook-container .myPosts{
+.cakebook-container .myPosts {
   display: flex;
   margin-bottom: 2em;
   background-color: rgb(250, 250, 245);
@@ -65,7 +67,20 @@
   width: 22em;
 }
 
-.cakebook-container .text-post{
+.cakebook-container .post{
+  display: flex;
+  margin-bottom: 1em;
+  background-color: rgb(250, 250, 245);
+  background-clip: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.09);
+  border-radius: 0.4rem;
+  padding: 0.5rem 1.25rem;
+  flex-direction: column;
+  font-size: 1em;
+  width: 22em;
+}
+
+.cakebook-container .text-post {
   display: flex;
   margin-bottom: 0.5em;
   background-color: rgb(250, 250, 245);
@@ -78,51 +93,129 @@
   width: 22em;
 }
 
-.header-post{
+.cakebook-container .time{
+  font-size: 10px;
+  display: flex;
+ justify-content: right;
+}
+
+.modal-deletePost {
+  display: grid;
+  place-items: center;
+  position: fixed;
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.3);
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow: auto;
+}
+
+.modal-deletePost {
+  display: none;
+}
+
+.modal-deletePost .modal-content {
+  background-color: white;
+  margin: auto;
+  padding: 18px;
+  border-radius: 0.4rem;
+  border: 1px solid rgba(247, 168, 202, 0.8);
+  width: 20em;
+}
+
+.closed-modal {
+  color:  rgba(247, 168, 202, 0.8);
+  font-size: 16px;
+  font-weight: bold;
+  background: none;
+  border: none;
+}
+
+.closed-modal:hover {
+  color: #fdd4e5;
+  cursor: pointer;
+}
+
+.modal-title{
+  font-weight: 700;
+}
+
+.close-title{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.modal-text{
+  display: flex;
+  flex-direction: column;
+}
+
+.btn-modal{
+  display: flex;
+  justify-content: right;
+}
+
+.delete-post:hover {
+  color: #fdd4e5;
+  cursor: pointer;
+}
+
+.delete-post {
+  color: rgba(0, 0, 0, 0.6);
+  background: none;
+  border-radius: 1.5em;
+  background-color: rgba(247, 168, 202, 0.8);
+  padding: 0.6em 1.5em;
+  border: none;
+}
+
+.header-post {
   display: flex;
 }
 
-.img-perfil{
+.img-perfil {
   margin-right: 0.5em;
 }
 
-.nav-myPost{
+.nav-myPost {
   display: flex;
   list-style: none;
+  flex-direction: row;
   align-items: center;
   justify-content: left;
   margin-top: 0%;
   margin-bottom: 0.5em;
   padding-left: 0;
-  gap: 0.2em;
+  gap: 0.5em;
 }
 
-.div-like{
+.div-like {
   display: flex;
+  align-items: center;
 }
 
-.i-like:hover{
+.i-like:hover {
   color: rgb(212, 23, 105);
   cursor: pointer;
 }
 
-.postBtn{
+.postBtn {
   background: none;
   border: none;
   cursor: pointer;
+  font-size: 1em;
 }
 
-#btn-photo{
+#publicar {
   margin-left: 3.5em;
 }
 
-#publicar{
-  margin-right: 0.5em;
-}
-
 .cakebook-container .imgUser {
-  height: 2.5em;
-  width: 2.5em;
+  height: 2.2em;
+  width: 2.2em;
 }
 
 .cakebook-container h2 {
@@ -140,6 +233,132 @@
   margin-right: 1.5em;
 }
 
-.btn-delete, .btn-edit{
+.btn-delete,
+.btn-edit {
   display: none;
+}
+
+.menu-nav-desktop{
+  display: none;
+}
+
+.sumLikes{
+  font-size: 1em;
+}
+
+.cakebook-container .btns-post{
+  margin-left: -0.8em;
+}
+
+@media screen and (min-width: 600px) and (max-width: 900px){
+  .cakebook-container h1 {
+    font-size: 2em;
+  }
+  .cakebook-container h2 {
+    font-size: 1.2em;
+  }
+
+  .cakebook-container .myPosts{
+    width: 30em;
+    margin-top: 2em;
+  }
+  .cakebook-container .post{
+    width: 30em;
+  }
+
+  .postBtn {
+    font-size: 1.2em;
+  }
+
+  .cakebook-container .text-post {
+    padding: 0.5rem 1.5rem;
+    font-size: 1.3em;
+    width: 30em;
+  }
+
+  #description{
+    font-size: 1em;
+  }
+
+  #user-name{
+    font-size: 1em;
+  }
+  .cakebook-container .imgUser {
+    height: 3em;
+    width: 3em;
+    margin-top: 0.3em;
+  }
+  .cakebook-container .time{
+    font-size: 14px;
+  }
+  .modal-deletePost .modal-content {
+    width: 27em;
+  }
+}
+
+@media screen and (min-width: 901px){
+  .container{
+    display: flex;
+    flex-direction: row;
+    margin-top: 69.33px;
+  }
+  .cakebook-container .containerTimeline {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 2.5em;
+    width: 55em;
+  }
+  .cakebook-container .myPosts, .cakebook-container .post{
+    width: 30em;
+  }
+  .cakebook-container .post{
+   padding-top: 2em;
+  }
+  .cakebook-container .text-post {
+    padding: 0.5rem 1.5rem;
+    font-size: 1.3em;
+    width: 30em;
+  }
+  .signOut{
+    font-size: 1.5em;
+  }
+
+  #description{
+   margin-top: 1.5em;
+   margin-bottom: 2em;
+  }
+  .cakebook-container  .nav-posts {
+    margin-bottom: 0.5;
+  }
+  .menu-nav-desktop{
+    display: flex;
+    flex-direction: column;
+    width: 18em;
+    justify-content: flex-start;
+    margin-left: -1.5em;
+    padding-top: 2em;
+    border-right: 0.1em solid rgb(231, 217, 225, 0.4)
+  }
+  .nav-desktop li{
+    list-style-type: none;
+    padding-top: 1em;
+    padding-bottom: 0.5em;
+  }
+  .postBtn {
+    font-size: 1.4em;
+  }
+  .sumLikes{
+    font-size: 1.2em;
+  }
+  .cakebook-container .time{
+    font-size: 0.8em;
+  }
+
+  .cakebook-container .btns-post{
+    margin-left: -2em;
+  }
+  .modal-deletePost .modal-content {
+    width: 27em;
+  }
 }
