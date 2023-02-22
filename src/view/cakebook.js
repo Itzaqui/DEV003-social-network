@@ -13,10 +13,9 @@ import { Timestamp } from 'firebase/firestore';
 
 export default () => {
   const viewTimeline = /* html */ `
-  <!--<img class = "fondoLogin" src = "images/fondoLogin.png">-->
   <header class="header">
     <nav class="nav">
-      <h1>cakeBook</h1>
+      <button class='logo'><h1>cakeBook</h1></button>
       <div class="btn-signOut">
         <button type="button" class="signOut" id="signOut">
           <i class="fas fa-sign-out-alt"></i>
@@ -35,15 +34,15 @@ export default () => {
   </div>
   <div class="containerTimeline">
     <form id="form-post" class="myPosts">
-       <h2>¿Qué vamos a compartir hoy?</h2>
+       <h2 class="titulo">¿Qué vamos a compartir hoy?</h2>
         <div class="header-post"> 
           <div class="img-perfil">
             <img src="./img/userPic.png" alt="" class="imgUser">
           </div>
-          <textarea  class="text-post" id="texto" placeholder="" autofocus></textarea>
+          <textarea  class="text-post" id="texto" placeholder="" autofocus maxlength="2000"></textarea>
         </div>
       <ul class="nav-myPost btns-post">
-        <li><button id="publicar" class="postBtn" title="Publicar"><i class="far fa-paper-plane"></i></button></li>
+        <li><button id="publicar" class="postBtn" title="Publicar"><i class="far fa-paper-plane i-public"></i></button></li>
         <li><button type="button" class="postBtn" id="btn-photo" title="Subir foto"><i class="fas fa-camera-retro"></i></button></li> 
       </ul> 
     </form>
@@ -55,12 +54,14 @@ export default () => {
           <div class="img-perfil">
             <img src="./img/userPic.png" alt="" class="imgUser">
           </div>
-          <h2 id="user-name">User-name</h2> 
+          <div class="nameUser">
+            <h2 id="user-name" class="userName">User-name</h2>
+            <p id="time" class="time">Time</p> 
+          </div>
         </div>
         <div>
           <!-- <img src="./img/image-post.png" alt="" class="imgUser">-->
           <p id="description">Aquí va el post</p>
-          <p id="time" class="time">Time</p>
         </div>
         <ul class="nav-myPost nav-posts">
           <div class="div-like">
@@ -141,6 +142,19 @@ export const init = () => {
     document.querySelector('.footer').style.display = 'none';
   });
 
+  const profileBtn = document.getElementById('perfilBtn');
+  profileBtn.addEventListener('click', () =>
+    history.pushState(null, null, '/profile')
+  );
+  const homeBtn = document.getElementById('homeBtn');
+  homeBtn.addEventListener('click', () =>
+    history.pushState(null, null, '/cakebook')
+  );
+  const logoCakebook = document.querySelector('.logo');
+  logoCakebook.addEventListener('click', () =>
+    history.pushState(null, null, '/cakebook')
+  );
+
   writePost();
 
   // CARGAR POSTS;
@@ -201,7 +215,6 @@ export const init = () => {
         e.preventDefault();
         if (btn.addEventListener) {
           modalDelete.style.display = 'grid';
-          
         }
         btnDeletePost.addEventListener('click', (e) => {
           const id = btnDeletePost.getAttribute('data-id');
@@ -209,7 +222,7 @@ export const init = () => {
         });
       });
     });
-  
+
     btnClosedModal.addEventListener('click', (e) => {
       modalDelete.style.display = 'none';
     });

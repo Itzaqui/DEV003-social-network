@@ -3,7 +3,7 @@ import { auth, login } from '../lib/firebase-app';
 import { loginWithGoogle } from '../lib/google-auth';
 
 export default () => {
-  const viewLogin = `
+  const viewLogin = /* html */ `
     <div class="img-container">
       <picture>
         <source media="(max-width: 599px)" srcset="/img/back-login.png" />
@@ -13,6 +13,10 @@ export default () => {
     </div>
     <div class= "container1">
       <h1>cakeBook</h1>
+      <div class="saludo">
+      <span>Cakebook te permite ver y compartir</span>
+      <span>deliciosas recetas con tus amigos.</span> 
+    </div>
       <form class= "form-login" id="form-login">
         <input class= "input-users" type="email" name="userEmail" id="userEmail" placeholder="Correo electrónico" required>
         <input class= "input-users" type="password" name="password" id="password"  placeholder="Contraseña" required>
@@ -72,7 +76,6 @@ export const init = () => {
   auth.onAuthStateChanged((user) => {
     if (user) {
       history.pushState(null, null, '/cakebook');
-      history.pushState(null, null, '/profile');
     }
   });
 };

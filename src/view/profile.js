@@ -7,7 +7,7 @@ export default () => {
   <!--<img class = "fondoLogin" src = "images/fondoLogin.png">-->
   <header class="header">
     <nav class="nav">
-      <h1>cakeBook</h1>
+    <button class='logo'><h1>cakeBook</h1></button>
       <div class="btn-signOut">
         <button type="button" class="signOut" id="signOut">
           <i class="fas fa-sign-out-alt"></i>
@@ -100,6 +100,12 @@ export const init = () => {
       });
     document.querySelector('.footer').style.display = 'none';
   });
+
+  const logoCakebook = document.querySelector('.logo');
+  logoCakebook.addEventListener('click', () =>
+    history.pushState(null, null, '/cakebook')
+  );
+
   writePost();
 
   auth.onAuthStateChanged((user) => {
