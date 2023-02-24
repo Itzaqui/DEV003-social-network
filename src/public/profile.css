@@ -8,19 +8,23 @@
   height: 100%
 }
 
+.profile-container .logo{
+  background-color:rgb(253, 212, 229);
+  border: none;
+}
 
 .profile-container h1 {
   display: flex;
   font-size: 1.5em;
   font-family: 'Inter', sans-serif;
-  color: #ff88bb;
+  color: rgb(255, 136, 187);
   justify-content: flex-start;
   align-items: center;
   margin-left: 0.5em;
 }
 
 .profile-container .header {
-  background-color: #fdd4e5;
+  background-color: rgb(253, 212, 229);
   position: fixed;
   width: 100%;
 }
@@ -47,7 +51,7 @@
 .profile-container .cover-profile{
   display: grid;
   place-items: center;
-  background-color: #fff3f8;
+  background-color: rgb(255, 243, 248);
   font-family: 'Inter', sans-serif;
   font-family: 'Montserrat', sans-serif;
   margin-top: 4em;
@@ -65,7 +69,7 @@
 .profile-container h2 {
   display: flex;
   flex-direction: column;
-  color: #ff88bb;
+  color: rgb(255, 136, 187);
   font-size: 2em;
   align-items: center;
 }
@@ -81,7 +85,7 @@
 
 .profile-container .editProfile{
   margin-bottom: 1em;
-  border-color:  #ff88bb ;
+  border-color:  rgb(255, 136, 187) ;
   border-radius: 0.5em;
   background-color: none;
 }
@@ -150,7 +154,6 @@
 
 .profile-container .friendsPosts {
   display: flex;
-  /* background-color: #f5eff0; */
   background-clip: border-box;
   border: 1px solid rgba(0, 0, 0, 0.09);
   border-radius: 0.4rem;
@@ -180,14 +183,14 @@
 
 .profile-container h3 {
   display: flex;
-  color: #ff88bb;
+  color: rgb(255, 136, 187);
   font-size: 0.9em;
   justify-content: center;
   padding-bottom: 0.5em;
 }
 
 .profile-container p {
-  color: #432e37;
+  color: rgb(67, 46, 55);
   font-size: 0.9em;
   margin-left: 1.5em;
   margin-right: 1.5em;

@@ -8,18 +8,23 @@
   height: 100%;
 }
 
+.cakebook-container .logo{
+  background-color:rgb(253, 212, 229);
+  border: none;
+}
+
 .cakebook-container h1 {
   display: flex;
   font-size: 1.5em;
   font-family: 'Inter', sans-serif;
-  color: #ff88bb;
+  color: rgb(255, 136, 187);
   justify-content: flex-start;
   align-items: center;
   margin-left: 0.5em;
 }
 
 .cakebook-container .header {
-  background-color: #fdd4e5;
+  background-color: rgb(253, 212, 229);
   position: fixed;
   width: 100%;
 }
@@ -60,7 +65,7 @@
   background-color: rgb(250, 250, 245);
   background-clip: border-box;
   border: 1px solid rgba(0, 0, 0, 0.09);
-  border-radius: 0.4rem;
+  border-radius: 0.8rem;
   padding: 0.5rem 1.25rem;
   flex-direction: column;
   font-size: 1em;
@@ -73,7 +78,7 @@
   background-color: rgb(250, 250, 245);
   background-clip: border-box;
   border: 1px solid rgba(0, 0, 0, 0.09);
-  border-radius: 0.4rem;
+  border-radius: 0.8rem;
   padding: 0.5rem 1.25rem;
   flex-direction: column;
   font-size: 1em;
@@ -86,17 +91,11 @@
   background-color: rgb(250, 250, 245);
   background-clip: border-box;
   border: 1px solid rgba(0, 0, 0, 0.09);
-  border-radius: 0.4rem;
+  border-radius: 0.8rem;
   padding: 0.5rem 1.25rem;
   flex-direction: column;
   font-size: 1em;
   width: 22em;
-}
-
-.cakebook-container .time{
-  font-size: 10px;
-  display: flex;
- justify-content: right;
 }
 
 .modal-deletePost {
@@ -117,7 +116,7 @@
 }
 
 .modal-deletePost .modal-content {
-  background-color: white;
+  background-color: rgb(255, 255, 255);
   margin: auto;
   padding: 18px;
   border-radius: 0.4rem;
@@ -134,7 +133,7 @@
 }
 
 .closed-modal:hover {
-  color: #fdd4e5;
+  color: rgb(253, 212, 229);
   cursor: pointer;
 }
 
@@ -159,7 +158,7 @@
 }
 
 .delete-post:hover {
-  color: #fdd4e5;
+  color: rgb(253, 212, 229);
   cursor: pointer;
 }
 
@@ -202,6 +201,11 @@
   cursor: pointer;
 }
 
+.i-public:hover {
+  color: rgb(212, 23, 105);
+  cursor: pointer;
+}
+
 .postBtn {
   background: none;
   border: none;
@@ -218,20 +222,30 @@
   width: 2.2em;
 }
 
+.cakebook-container .time{
+  font-size: 0.6em;
+  color: rgb(255, 136, 187);
+  margin-block-start: 0em;
+  padding-left: 0.9em;
+}
+.titulo{
+  padding-bottom: 0.9em;
+}
 .cakebook-container h2 {
   display: flex;
-  color: #ff88bb;
+  color: rgb(255, 136, 187);
   font-size: 0.9em;
   justify-content: center;
-  padding-bottom: 0.5em;
+  margin-block-start: 0.83em;
+  margin-block-end: 0.2em;
 }
 
-.cakebook-container p {
+/* .cakebook-container p {
   color: #432e37;
   font-size: 0.9em;
   margin-left: 1.5em;
   margin-right: 1.5em;
-}
+} */
 
 .btn-delete,
 .btn-edit {
@@ -250,12 +264,16 @@
   margin-left: -0.8em;
 }
 
+.nameUser{
+  display: block;
+}
+
 @media screen and (min-width: 600px) and (max-width: 900px){
   .cakebook-container h1 {
     font-size: 2em;
   }
   .cakebook-container h2 {
-    font-size: 1.2em;
+    font-size: 1.1em;
   }
 
   .cakebook-container .myPosts{
@@ -280,17 +298,12 @@
     font-size: 1em;
   }
 
-  #user-name{
-    font-size: 1em;
-  }
   .cakebook-container .imgUser {
     height: 3em;
     width: 3em;
-    margin-top: 0.3em;
+    margin-top: 0.5em;
   }
-  .cakebook-container .time{
-    font-size: 14px;
-  }
+
   .modal-deletePost .modal-content {
     width: 27em;
   }
@@ -310,7 +323,7 @@
     width: 55em;
   }
   .cakebook-container .myPosts, .cakebook-container .post{
-    width: 30em;
+    width: 35em;
   }
   .cakebook-container .post{
    padding-top: 2em;
@@ -318,10 +331,11 @@
   .cakebook-container .text-post {
     padding: 0.5rem 1.5rem;
     font-size: 1.3em;
-    width: 30em;
+    width: 35em;
   }
   .signOut{
     font-size: 1.5em;
+    margin-right: 1em;
   }
 
   #description{
@@ -335,6 +349,7 @@
     display: flex;
     flex-direction: column;
     width: 18em;
+    color: rgb(67, 46, 55);
     justify-content: flex-start;
     margin-left: -1.5em;
     padding-top: 2em;
@@ -360,5 +375,20 @@
   }
   .modal-deletePost .modal-content {
     width: 27em;
+  }
+  .cakebook-container h1 {
+    font-size: 2em; 
+  }
+  .cakebook-container h2 {
+    font-size: 1.1em; 
+  }
+
+  i{
+    color: rgb(67, 46, 55);
+  }
+  .cakebook-container .imgUser {
+    height: 3em;
+    width: 3em;
+    margin-top: 0.4em;
   }
 }

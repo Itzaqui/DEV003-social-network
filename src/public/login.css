@@ -48,11 +48,18 @@
   display: flex;
   font-size: 2.5em;
   font-family: 'Inter', sans-serif;
-  color: #ff88bb;
+  color: rgb(255, 136, 187);
   justify-content: center;
-  margin-top: 1.5em;
 }
 
+.login-container .saludo{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: rgba(0, 0, 0, 0.6);
+  text-align: center;
+  margin-bottom: 1em;
+}
 
 .login-container .input-users {
   display: flex;
@@ -61,7 +68,7 @@
   border-radius: 0.5em;
   background-color:  rgba(241, 205, 215, 0.38);
   border: none;
-  color: #432e37;
+  color: rgb(67, 46, 55);
   font-weight: 500;
   font-size: 0.9em;
   justify-content: center;
@@ -86,7 +93,7 @@
 }
 
 .login-container .log-button:hover {
-  background-color: #ff88bb;
+  background-color: rgb(255, 136, 187);
   cursor: pointer;
 }
 
@@ -99,7 +106,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #432e37;
+  color: rgb(67, 46, 55);
 }
 
 .login-container .logo {
