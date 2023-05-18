@@ -1,0 +1,152 @@
+* {
+  box-sizing: border-box;
+}
+
+.login-container {
+  align-items: flex-end;
+  display: flex;
+  justify-content: center;
+  height: 100%;
+}
+
+.login-container .img-container {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  overflow: hidden;
+  right: 0;
+  top: 0;
+  z-index: -1;
+}
+
+.login-container .img-container img {
+  height: 100vh;
+  width: 100%;
+}
+
+.login-container .container1 {
+  display: flex;
+  width: 90%;
+  max-width: 30em;
+  background-color: rgb(231, 217, 225, 0.4);
+  border-radius: 1em;
+  flex-direction: column;
+  margin: 0 1em 1em;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.login-container .form-login {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-around;
+  padding-top: 1.5em;
+  padding-bottom: 1.5em;
+}
+
+.login-container h1 {
+  display: flex;
+  font-size: 2.5em;
+  font-family: 'Inter', sans-serif;
+  color: rgb(255, 136, 187);
+  justify-content: center;
+}
+
+.login-container .saludo{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: rgba(0, 0, 0, 0.6);
+  text-align: center;
+  margin-bottom: 1em;
+}
+
+.login-container .input-users {
+  display: flex;
+  width: 19em;
+  padding: 0.7em 0.7em;
+  border-radius: 0.5em;
+  background-color:  rgba(241, 205, 215, 0.38);
+  border: none;
+  color: rgb(67, 46, 55);
+  font-weight: 500;
+  font-size: 0.9em;
+  justify-content: center;
+  margin-bottom: 1em;
+  margin-top: 0.5em;
+}
+
+
+.login-container .log-button {
+  display: flex;
+  width: 17em;
+  height: 2.5em;
+  padding: 0.7em 0.7em;
+  border-radius: 1.5em;
+  background-color: rgba(247, 168, 202, 0.8);
+  color: rgba(0, 0, 0, 0.6);
+  border: none;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+  margin-bottom: 1em;
+}
+
+.login-container .log-button:hover {
+  background-color: rgb(255, 136, 187);
+  cursor: pointer;
+}
+
+#login {
+  margin-top: 1em;
+}
+
+.login-container .login-google {
+  margin-top: 0.3em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgb(67, 46, 55);
+}
+
+.login-container .logo {
+  width: 25px;
+  padding-right: 0.4em;
+}
+
+#btn-google-register{
+margin-top: 0.8em;
+width: 14em;
+border: solid 0.006em;
+border-radius: 0.2em;
+border-color:rgba(162, 160, 160, 0.3);
+}
+
+#btn-google-register:hover {
+  background-color:  rgba(250, 210, 66, 0.5);;
+  cursor: pointer;
+}
+
+
+@media screen and (min-width: 1023px) {
+  .login-container {
+    align-items: center;
+  }
+
+  .login-container .container1 {
+    padding-top: 3em;
+    padding-bottom: 3em;
+  }
+
+  .login-container h1 {
+    margin-top: 1em;
+  }
+
+  .login-container .form-login {
+    padding-top: 2.5em;
+  }
+
+  .login-container .input-users {
+    width: 25em;
+  }
+}
